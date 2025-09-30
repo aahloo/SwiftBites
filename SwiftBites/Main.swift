@@ -22,8 +22,5 @@ struct ContentView: View {
           Label("Ingredients", systemImage: "carrot")
         }
     }
-    .onAppear {
-      DataService.loadSampleData(context: modelContext) // DataService now uses SwiftData ModelContext and loads sample data if needed
-    }
   }
 }
