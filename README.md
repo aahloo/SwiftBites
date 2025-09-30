@@ -102,16 +102,13 @@ final class RecipeIngredient {
 
 #### `DataService`
 ```swift
-final class DataService {
-    static func loadSampleData(context: ModelContext)
+final class DataService {    
     static func ingredientExists(name: String, context: ModelContext, excluding: Ingredient?) -> Bool
     static func categoryExists(name: String, context: ModelContext, excluding: Category?) -> Bool
     static func recipeExists(name: String, context: ModelContext, excluding: Recipe?) -> Bool
 }
 ```
-- **Purpose**: Utility service for data operations
-- **Functions**: Sample data loading, duplicate validation
-- **Pattern**: Static methods, no instance required
+- **Purpose**: Utility service for data operations and Helper methods for checking duplicates
 
 ## 📱 User Interface Components
 
