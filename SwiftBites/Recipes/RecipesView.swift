@@ -14,18 +14,28 @@ struct RecipesView: View {
   @State private var sortOrder = SortDescriptor(\Recipe.name)
   
   /* Data source from storage arrays to SwiftData @Query */
-  // @Query automatically fetches and updates from SwiftData
+  // @Query automatically fetches and updates from SwiftData with #Predicate filtering
   @Query private var allRecipes: [Recipe]
+  
+  /* Filtered recipes using #Predicate for efficient database-level filtering */
+  // #Predicate enables database-level filtering instead of in-memory operations
+  private var filteredRecipes: [Recipe] {
+    if query.isEmpty {
+      return allRecipes
+    }
+    
+    let predicate = #Predicate<Recipe> { recipe in
+      recipe.name.localizedStandardContains(query) || recipe.summary.localizedStandardContains(query)
+    }
+    
+    let descriptor = FetchDescriptor<Recipe>(predicate: predicate)
+    return (try? modelContext.fetch(descriptor)) ?? []
+  }
   
   /* Combined filtering and sorting in computed property */
   // Single computed property handles both operations efficiently
   private var recipes: [Recipe] {
-    let filtered = if query.isEmpty {
-      allRecipes
-    } else {
-      allRecipes.filter { $0.name.localizedStandardContains(query) || $0.summary.localizedStandardContains(query) }
-    }
-    return filtered.sorted(using: sortOrder)
+    return filteredRecipes.sorted(using: sortOrder)
   }
 
   // MARK: - Body

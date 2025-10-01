@@ -24,14 +24,19 @@ struct IngredientsView: View {
   // @Query automatically fetches and updates from SwiftData
   @Query private var allIngredients: [Ingredient]
   
-  /* Filtering moved to computed property for efficiency */
-  // Computed property filters @Query results without extra database calls
+  /* Filtered ingredients using #Predicate for efficient database-level filtering */
+  // #Predicate enables database-level filtering instead of in-memory operations
   private var ingredients: [Ingredient] {
     if query.isEmpty {
       return allIngredients
-    } else {
-      return allIngredients.filter { $0.name.localizedStandardContains(query) }
     }
+    
+    let predicate = #Predicate<Ingredient> { ingredient in
+      ingredient.name.localizedStandardContains(query)
+    }
+    
+    let descriptor = FetchDescriptor<Ingredient>(predicate: predicate)
+    return (try? modelContext.fetch(descriptor)) ?? []
   }
 
   // MARK: - Body

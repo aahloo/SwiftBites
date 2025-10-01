@@ -5,7 +5,7 @@ import SwiftData
 final class Ingredient {
     
   var id: UUID
-  var name: String
+  @Attribute(.unique) var name: String
   
   // SwiftData relationship with automatic cascade deletion
   @Relationship(deleteRule: .cascade, inverse: \RecipeIngredient.ingredient)
@@ -22,7 +22,7 @@ final class Ingredient {
 final class Category {
     
   var id: UUID
-  var name: String
+  @Attribute(.unique) var name: String
   
   @Relationship(deleteRule: .nullify, inverse: \Recipe.category)
   var recipes: [Recipe] = []
@@ -38,7 +38,7 @@ final class Category {
 final class Recipe {
     
   var id: UUID
-  var name: String
+  @Attribute(.unique) var name: String
   var summary: String
   var serving: Int
   var time: Int

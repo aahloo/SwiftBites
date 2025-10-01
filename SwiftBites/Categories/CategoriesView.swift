@@ -12,14 +12,19 @@ struct CategoriesView: View {
   // @Query automatically fetches and updates from SwiftData
   @Query private var allCategories: [Category]
   
-  /* Filtering moved to computed property for efficiency */
-  // Computed property filters @Query results without extra database calls
+  /* Filtered categories using #Predicate for efficient database-level filtering */
+  // #Predicate enables database-level filtering instead of in-memory operations
   private var categories: [Category] {
     if query.isEmpty {
       return allCategories
-    } else {
-      return allCategories.filter { $0.name.localizedStandardContains(query) }
     }
+    
+    let predicate = #Predicate<Category> { category in
+      category.name.localizedStandardContains(query)
+    }
+    
+    let descriptor = FetchDescriptor<Category>(predicate: predicate)
+    return (try? modelContext.fetch(descriptor)) ?? []
   }
 
   // MARK: - Body
