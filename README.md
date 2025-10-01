@@ -29,24 +29,6 @@ This project has been migrated from a mock data system to a full SwiftData imple
 - **Core Data Integration**: Leverages Apple's mature persistence framework
 - **Type Safety**: Compile-time safety for database operations
 
-## 📁 Project Structure
-
-```
-SwiftBites/
-├── SwiftBites/
-│   ├── App.swift                    # App entry point with SwiftData configuration
-│   ├── Main.swift                   # Main ContentView with TabView navigation
-│   ├── SwiftDataModels.swift        # SwiftData persistent models
-│   ├── DataService.swift            # Utility service for data operations
-│   ├── Utils.swift                  # UI utility extensions
-│   ├── Assets.xcassets/             # App icons and recipe images
-│   ├── Categories/                  # Category management views
-│   ├── Ingredients/                 # Ingredient management views
-│   ├── Recipes/                     # Recipe management views
-│   └── Preview Content/             # SwiftUI preview assets
-└── README.md                        # Project documentation
-```
-
 ## 🗄️ SwiftData Models
 
 ### Core Models
@@ -120,16 +102,13 @@ final class RecipeIngredient {
 
 #### `DataService`
 ```swift
-final class DataService {
-    static func loadSampleData(context: ModelContext)
+final class DataService {    
     static func ingredientExists(name: String, context: ModelContext, excluding: Ingredient?) -> Bool
     static func categoryExists(name: String, context: ModelContext, excluding: Category?) -> Bool
     static func recipeExists(name: String, context: ModelContext, excluding: Recipe?) -> Bool
 }
 ```
-- **Purpose**: Utility service for data operations
-- **Functions**: Sample data loading, duplicate validation
-- **Pattern**: Static methods, no instance required
+- **Purpose**: Utility service for data operations and Helper methods for checking duplicates
 
 ## 📱 User Interface Components
 
@@ -215,34 +194,6 @@ final class DataService {
 - ✅ **Memory Management**: Lazy loading and automatic memory management
 - ✅ **Reactive UI**: `@Query` automatically updates views
 
-## 🛠️ Technical Requirements
-
-- **iOS**: 17.0+
-- **Xcode**: 15.0+
-- **Swift**: 5.9+
-- **Frameworks**: SwiftUI, SwiftData, PhotosUI
-
-## 🚀 Getting Started
-
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd SwiftBites
-   ```
-
-2. **Open in Xcode**
-   ```bash
-   open SwiftBites.xcodeproj
-   ```
-
-3. **Run the project**
-   - Select a simulator or device
-   - Press `Cmd + R` to build and run
-
-4. **Sample Data**
-   - Sample recipes and ingredients load automatically on first launch
-   - Includes Italian and Middle Eastern categories with popular recipes
-
 ## 📋 Features in Detail
 
 ### Recipe Creation
@@ -264,32 +215,10 @@ final class DataService {
 - **Error Handling**: User-friendly error messages
 - **Data Integrity**: Automatic relationship maintenance
 
-## 🧪 Testing
-
-The application includes comprehensive validation for:
-- ✅ Duplicate prevention across all entities
-- ✅ Relationship integrity maintenance
-- ✅ Proper cascade/nullify deletion behavior
-- ✅ UI state management during data operations
-- ✅ Search and filtering functionality
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- Built with Apple's SwiftUI and SwiftData frameworks
-- Recipe images from various culinary sources
-- Icons from SF Symbols
+### FUTURE UPDATES
+- **User Customization and Profiles: Enable users to create profiles where they can save their favorite recipes, dietary preferences, and any allergies, with the ability     to filter out recipes that don't match the user's dietary needs automatically
+- **Meal Planning and Grocery Lists: Integrate a meal planner that helps users organize their meals for the week.
+    Based on the meal plan, the app can automatically generate a grocery list of ingredients needed. This feature not only adds value by simplifying meal preparation but     also encourages users to explore more recipes within the app.
 
 ---
 
