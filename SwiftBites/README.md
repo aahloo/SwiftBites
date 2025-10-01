@@ -103,14 +103,12 @@ final class RecipeIngredient {
 #### `DataService`
 ```swift
 final class DataService {
-    static func loadSampleData(context: ModelContext)
     static func ingredientExists(name: String, context: ModelContext, excluding: Ingredient?) -> Bool
     static func categoryExists(name: String, context: ModelContext, excluding: Category?) -> Bool
     static func recipeExists(name: String, context: ModelContext, excluding: Recipe?) -> Bool
 }
 ```
-- **Purpose**: Utility service for data operations
-- **Functions**: Sample data loading, duplicate validation
+- **Purpose**: Utility service for data operations and Helper methods for checking duplicates
 - **Pattern**: Static methods, no instance required
 
 ## 📱 User Interface Components
@@ -196,12 +194,3 @@ final class DataService {
 - ✅ **Scalability**: Handles large datasets efficiently
 - ✅ **Memory Management**: Lazy loading and automatic memory management
 - ✅ **Reactive UI**: `@Query` automatically updates views
-
-## 🧪 Testing
-
-The application includes comprehensive validation for:
-- ✅ Duplicate prevention across all entities
-- ✅ Relationship integrity maintenance
-- ✅ Proper cascade/nullify deletion behavior
-- ✅ UI state management during data operations
-- ✅ Search and filtering functionality
